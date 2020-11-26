@@ -11,7 +11,7 @@ function aHash(image) {
             bitArray[i] = imageArray[i] > avg
         }
         bitStr = bitArray.join("")
-        return parseInt(bitSt, 2).toString(16)
+        return parseInt(bitStr, 2).toString(16)
     }).catch(err => {
         console.log(err)
     })

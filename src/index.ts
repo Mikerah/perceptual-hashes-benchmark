@@ -10,6 +10,12 @@ const bitLenghCheck = (bits: string): boolean => bits.length >= 32
 
 const generatePrivateKey = async (path: string): Promise<void> => {
   let image = fs.readFileSync(path);
+  // TODO  we need to convert binary to hex from the output of the phash
+  // For example: 
+  // defaults to BIP39 English word list
+  // uses HEX strings for entropy
+  //const mnemonic = bip39.entropyToMnemonic('00000000000000000000000000000000')
+  // bip39.entropyToMnemonic('00000000000000000000000000000fff')
   let bits = await pHash(image, 8);
   if (!bitLenghCheck(bits)) {
     throw "Not good enough entropy"

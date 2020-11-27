@@ -2,9 +2,12 @@
   "name": "hashes-benchmark",
   "version": "0.0.1",
   "description": "",
-  "main": "src/index.js",
+  "main": "./src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "clean": "rm -r ./dist",
+    "copy-static": "cp -r static ./dist",
+    "compile": "npm run clean && tsc -p tsconfig.json && npm run copy-static",
+    "start": "npm run compile && node ./dist"
   },
   "repository": {
     "type": "git",
@@ -18,7 +21,10 @@
   "homepage": "https://github.com/Mikerah/perceptual-hashes-benchmark#readme",
   "dependencies": {
     "@types/sharp": "^0.26.1",
+    "ethers": "^5.0.23",
     "sharp": "^0.26.3",
+    "sharp-phash": "git+https://github.com/btd/sharp-phash.git",
+    "tslib": "^2.0.3",
     "typescript": "^4.1.2"
   }
 }

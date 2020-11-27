@@ -2,15 +2,10 @@
   "include": ["./src/**/*"],
   "compilerOptions": {
     "outDir": "./dist",
-    "rootDir": "./src",
-    "target": "es6",
+    "target": "es2017",
     "importHelpers": true,
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
-    "allowJs": false,
+    "lib": ["es2019", "dom", "esnext.asynciterable"],
+    "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
     "sourceMap": true,
@@ -23,7 +18,6 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "noEmit": true,
     "jsx": "preserve",
     "module": "commonjs"
   }

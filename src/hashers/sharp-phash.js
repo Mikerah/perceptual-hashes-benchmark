@@ -48,9 +48,9 @@ function applyDCT(f, size) {
   return F;
 }
 
-const LOW_SIZE = 8;
+const LOW_SIZE = 12;
 
-module.exports = async function phash(image) {
+module.exports = async function phash(image, low_size = LOW_SIZE) {
   const data = await sharp(image)
     .greyscale()
     .resize(SAMPLE_SIZE, SAMPLE_SIZE, { fit: "fill" })
@@ -71,19 +71,19 @@ module.exports = async function phash(image) {
 
   // get AVG on high frequencies
   let totalSum = 0;
-  for (let x = 0; x < LOW_SIZE; x++) {
-    for (let y = 0; y < LOW_SIZE; y++) {
+  for (let x = 0; x < low_size; x++) {
+    for (let y = 0; y < low_size; y++) {
       totalSum += dct[x + 1][y + 1];
     }
   }
 
-  const avg = totalSum / (LOW_SIZE * LOW_SIZE);
+  const avg = totalSum / (low_size * low_size);
 
   // compute hash
   let fingerprint = "";
 
-  for (let x = 0; x < LOW_SIZE; x++) {
-    for (let y = 0; y < LOW_SIZE; y++) {
+  for (let x = 0; x < low_size; x++) {
+    for (let y = 0; y < low_size; y++) {
       fingerprint += dct[x + 1][y + 1] > avg ? "1" : "0";
     }
   }

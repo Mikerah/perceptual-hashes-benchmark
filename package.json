@@ -6,7 +6,7 @@
   "scripts": {
     "clean": "rm -r ./dist",
     "copy-static": "cp -r static ./dist",
-    "compile": "npm run clean && tsc -p tsconfig.json && npm run copy-static",
+    "compile": "tsc -p tsconfig.json && npm run copy-static",
     "start": "npm run compile && node ./dist"
   },
   "repository": {

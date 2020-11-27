@@ -2,10 +2,21 @@ import { pHash } from "./hashers";
 import fs from "fs";
 import { ethers } from "ethers";
 
-const main = async (path: string) => {
+// https://keepass.info/help/kb/pw_quality_est.html
+const goodEntropyCheck = (bits: string): boolean => {
+  console.log("Bits Lenght: ", bits.length);
+  return bits.length >= 128
+}
+
+const main = async (path: string): Promise<void> => {
   let image = fs.readFileSync(path);
   pHash(image).then((bits: string) => {
-    let entropy = ethers.utils.keccak256(Buffer.from(bits));
+
+    if (!goodEntropyCheck(bits)) {
+      throw "Not good enough entropy"
+    }
+
+    let entropy = ethers.utils.sha512(ethers.utils.toUtf8Bytes(bits));
     console.log(path, ethers.utils.HDNode.fromSeed(entropy).privateKey);
   })
 }
@@ -20,5 +31,7 @@ let files = [
 ];
 
 files.map((name) => {
-  main("./static/" + name)
+  main("./static/" + name).catch((e) => {
+    console.log(e)
+  })
 })
